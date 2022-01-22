@@ -1,8 +1,7 @@
 import { ActionPanel, CopyToClipboardAction, List, showToast, ToastStyle } from "@raycast/api";
 import { useState, useEffect } from "react";
 import fs from "fs";
-
-const CSS_FILE = '/Users/manu/projects/frontend/packages/styles/src/vars.css'
+import { settings } from "./settings";
 
 export default function UtilityList() {
   const [state, setState] = useState<{ utilities: Utility[] }>({ utilities: [] });
@@ -51,7 +50,7 @@ function UtilityListItem(props: { utility: Utility }) {
 
 // Load CSS file, parse and return as JSON
 function parseCSS() {
-  const data = fs.readFileSync(CSS_FILE, {encoding:'utf8', flag:'r'});
+  const data = fs.readFileSync(settings.tokens, {encoding:'utf8', flag:'r'});
   let JSONasString = ''
   let total = 0
 
@@ -90,7 +89,7 @@ async function fetchUtilities(): Promise<Utility[]> {
     return (json as Record<string, unknown>).items as Utility[];
   } catch (error) {
     console.error(error)
-    showToast(ToastStyle.Failure, `Error loading CSS_FILE(${CSS_FILE})`);
+    showToast(ToastStyle.Failure, `Error loading settings.tokens(${settings.tokens})`);
     return Promise.resolve([]);
   }
 }
