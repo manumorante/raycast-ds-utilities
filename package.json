@@ -7,10 +7,17 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
-      "title": "Search for utility",
+      "name": "utility",
+      "title": "Utility",
       "subtitle": "Search utility by name or prpp ...",
       "description": "Search utility by name or prpp.",
+      "mode": "view"
+    },
+    {
+      "name": "token",
+      "title": "Token",
+      "subtitle": "Search token name or value.",
+      "description": "Search token name or value.",
       "mode": "view"
     }
   ],
