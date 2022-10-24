@@ -13,4 +13,3 @@ export const readVarsFromCSS = (css: string) => {
   })
   return varsObj
 }
-

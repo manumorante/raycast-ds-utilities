@@ -84,8 +84,8 @@ function parseCSS() {
       subtitle = subtitle.replace(/;$/, '')
 
       // Remove `var()`
-      // subtitle = subtitle.replace(/var\(/g, '')
-      // subtitle = subtitle.replace(/\)/g, '')
+      subtitle = subtitle.replace(/var\(/g, '')
+      subtitle = subtitle.replace(/\)/g, '')
   
       JSONasString = JSONasString + `{
         "id": "${total}::${accessory}",
