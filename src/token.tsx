@@ -1,32 +1,29 @@
-import { ActionPanel, CopyToClipboardAction, List, showToast, ToastStyle } from "@raycast/api";
+import { ActionPanel, CopyToClipboardAction, List, OpenInBrowserAction, showToast, ToastStyle } from "@raycast/api";
 import { useState, useEffect } from "react";
 import fs from "fs";
 import { settings } from "./settings";
 
 export default function TokenList() {
-  const [state, setState] = useState<{ tokens: Token[] }>({ tokens: [] });
+  const [state, setState] = useState<{ data: List[] }>({ data: [] });
 
   useEffect(() => {
     async function fetch() {
-      const tokens = await fetchTokens();
-      setState((oldState) => ({
-        ...oldState,
-        tokens: tokens,
-      }));
+      const data = await fetchData();
+      setState((oldState) => ({ ...oldState, data }));
     }
     fetch();
   }, []);
 
   return (
-    <List isLoading={state.tokens.length === 0} searchBarPlaceholder="Search by name or prop ...">
-      {state.tokens.map((token) => (
-        <TokenListItem key={token.id} token={token} />
+    <List isLoading={state.data.length === 0} searchBarPlaceholder="Search by name or prop ...">
+      {state.data.map((token) => (
+        <ListItem key={token.id} token={token} />
       ))}
     </List>
   );
 }
 
-function TokenListItem(props: { token: Token }) {
+function ListItem(props: { token: List }) {
   const token = props.token;
 
   return (
@@ -37,11 +34,12 @@ function TokenListItem(props: { token: Token }) {
       subtitle={token.subtitle}
       icon='🔹'
       accessoryTitle={token.accessory}
-      keywords={[token.accessory]}
+      keywords={[token.accessory, token.subtitle]}
       actions={
         <ActionPanel>
           <CopyToClipboardAction title="Copy token" content={token.title} />
           <CopyToClipboardAction title="Copy CSS" content={token.subtitle} />
+          <OpenInBrowserAction title="Open tokens file" url={settings.tokens} />
         </ActionPanel>
       }
     />
@@ -95,10 +93,10 @@ function parseCSS() {
   return JSON.parse(JSONasString)
 }
 
-async function fetchTokens(): Promise<Token[]> {  
+async function fetchData(): Promise<List[]> {  
   try {
     const json = parseCSS()
-    return (json as Record<string, unknown>).items as Token[];
+    return (json as Record<string, unknown>).items as List[];
   } catch (error) {
     console.error(error)
     showToast(ToastStyle.Failure, `Error loading settings.tokens(${settings.tokens})`);
@@ -106,7 +104,7 @@ async function fetchTokens(): Promise<Token[]> {
   }
 }
 
-type Token = {
+type List = {
   id: string;
   title: string;
   subtitle: string;

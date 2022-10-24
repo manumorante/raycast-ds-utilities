@@ -1,4 +1,4 @@
-import { ActionPanel, PasteAction, Icon, List, showToast, ToastStyle } from "@raycast/api";
+import { ActionPanel, PasteAction, Icon, List, showToast, ToastStyle, OpenInBrowserAction } from "@raycast/api";
 import { useState, useEffect } from "react";
 import fs from "fs";
 import { settings } from "./settings";
@@ -49,13 +49,12 @@ function UtilityListItem(props: { utility: Utility }) {
       subtitle={utility.subtitle}
       icon={cat.icon}
       accessoryTitle={cat.name}
-      keywords={[utility.accessory, cat.name]}
+      keywords={[utility.accessory, utility.subtitle, cat.name]}
       actions={
         <ActionPanel>
-          <PasteAction icon={Icon.Hammer} title="Paste utility" content={utility.title} />
+          <PasteAction icon={Icon.Hammer} title={`Paste utility '${utility.title}'`} content={utility.title} />
           <PasteAction icon={Icon.Gear} title="Paste CSS" content={utility.subtitle} />
-          <PasteAction title="Paste category name" content={cat.name} />
-          <PasteAction title="Paste category icon" content={cat.icon} />
+          <OpenInBrowserAction title="Open utilities file" url={settings.utilities} />
         </ActionPanel>
       }
     />
