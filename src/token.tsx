@@ -1,7 +1,14 @@
-import { settings } from './settings'
-import { readFile, parseTokens } from './utils'
+import { paths } from '../config'
+import { readFile, parseTokens } from './lib'
 import { ActionPanel, CopyToClipboardAction, List, OpenInBrowserAction, showToast, ToastStyle } from '@raycast/api'
 import { useState, useEffect } from 'react'
+
+type List = {
+  id: string
+  title: string
+  subtitle: string
+  accessory: string
+}
 
 export default function TokenList() {
   const [state, setState] = useState<{ data: List[] }>({ data: [] })
@@ -9,29 +16,30 @@ export default function TokenList() {
   useEffect(() => {
     async function fetch() {
       const data = await fetchData()
-      setState((oldState) => ({ ...oldState, data }))
+      setState((old) => ({ ...old, data }))
     }
     fetch()
   }, [])
 
   return (
     <List isLoading={state.data.length === 0} searchBarPlaceholder='Name or prop ...'>
-      {state.data.map((token) => (
-        <ListItem key={token.id} token={token} />
+      {state.data.map((token, index) => (
+        <ListItem key={index} token={token} />
       ))}
     </List>
   )
 }
 
 function ListItem(props: { token: List }) {
-  const token = props.token
+  const { token } = props
+  const { id, title, subtitle } = token
 
   return (
     <List.Item
-      id={token.id}
-      key={token.id}
-      title={token.title}
-      subtitle={token.subtitle}
+      id={id}
+      key={id}
+      title={title}
+      subtitle={subtitle}
       icon='🔹'
       accessoryTitle={token.accessory}
       keywords={[token.accessory, token.subtitle]}
@@ -39,7 +47,7 @@ function ListItem(props: { token: List }) {
         <ActionPanel>
           <CopyToClipboardAction title='Copy token' content={token.title} />
           <CopyToClipboardAction title='Copy CSS' content={token.subtitle} />
-          <OpenInBrowserAction title='Open tokens file' url={settings.tokens} />
+          <OpenInBrowserAction title='Open tokens file' url={paths.tokens} />
         </ActionPanel>
       }
     />
@@ -47,20 +55,8 @@ function ListItem(props: { token: List }) {
 }
 
 async function fetchData(): Promise<List[]> {
-  try {
-    const css = readFile(settings.tokens)
-    const json = parseTokens(css)
-    return (json as Record<string, unknown>).items as List[]
-  } catch (error) {
-    console.error(error)
-    showToast(ToastStyle.Failure, `Error loading settings.tokens(${settings.tokens})`)
-    return Promise.resolve([])
-  }
-}
+  const css = readFile(paths.tokens)
+  const json = parseTokens(css)
 
-type List = {
-  id: string
-  title: string
-  subtitle: string
-  accessory: string
+  return (json as Record<string, unknown>).items as List[]
 }
