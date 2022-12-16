@@ -1,5 +1,5 @@
 import { paths } from '../config'
-import { getPropCategory } from './lib'
+import { getPropCategory } from './lib/utils'
 import { ActionPanel, PasteAction, Icon, List, OpenInBrowserAction } from '@raycast/api'
 
 type List = {

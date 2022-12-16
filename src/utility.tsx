@@ -1,5 +1,6 @@
 import { paths } from '../config'
-import { readFile, getProps, getSelectors, parseUtilities } from './lib'
+import { readFile, getProps, getSelectors } from './lib/utils'
+import parseUtilities from './lib/parseUtilities'
 import { List } from '@raycast/api'
 import UtilityListItem from './UtilityListItem'
 import { useState, useEffect } from 'react'

@@ -1,6 +1,7 @@
 import { paths } from '../config'
-import { readFile, parseTokens } from './lib'
-import { ActionPanel, CopyToClipboardAction, List, OpenInBrowserAction, showToast, ToastStyle } from '@raycast/api'
+import { readFile } from './lib/utils'
+import parseTokens from './lib/parseTokens'
+import { ActionPanel, CopyToClipboardAction, List, OpenInBrowserAction } from '@raycast/api'
 import { useState, useEffect } from 'react'
 
 type List = {

@@ -1,4 +1,4 @@
-import { categories } from './categories'
+import { categories } from '../categories'
 import fs from 'fs'
 
 // readFile
@@ -53,61 +53,10 @@ export function getProps(css: string): { name: string; value: string }[] {
 
   return props
 }
-const sana = (value: string) => {
+
+export const sana = (value: string) => {
   value = value.replaceAll('"', "'")
   return value.trim()
-}
-
-// parseTokens
-export function parseTokens(css: string) {
-  const props = getProps(css)
-
-  const items: {
-    id: string
-    title: string
-    subtitle: string
-    accessory: string
-  }[] = []
-
-  props.map((prop, id) => {
-    const name = prop.name
-    const value = sana(prop.value)
-
-    items.push({
-      id: '#' + id,
-      title: name,
-      subtitle: value,
-      accessory: '',
-    })
-  })
-
-  return { items }
-}
-
-type NameValue = {
-  name: string
-  value: string
-}
-
-// parseUtilities
-export function parseUtilities({ utilitiesJSON, tokensJSON }: { utilitiesJSON: Array; tokensJSON: Array }) {
-  const items: {
-    id: string
-    title: string
-    subtitle: string
-    accessory: string
-  }[] = []
-
-  utilitiesJSON.map((prop: NameValue) => {
-    items.push({
-      id: prop.name,
-      title: prop.name,
-      subtitle: sana(prop.value),
-      accessory: '',
-    })
-  })
-
-  return { items }
 }
 
 // getPropCategory
