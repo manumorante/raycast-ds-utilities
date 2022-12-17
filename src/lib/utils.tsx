@@ -32,7 +32,7 @@ export function getSelectors(css: string): NameValue[] {
   let lines = css.split('\n')
 
   // Nos quedamos las lineas que contengan un selector válido
-  lines = lines.filter((item) => hasSelector(item))
+  lines = lines.filter((item) => hasSelector(item)).sort()
 
   lines.map((item) => {
     const name = item.split('{')[0].trim()
