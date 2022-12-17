@@ -1,6 +1,6 @@
 import { getPrefix } from './lib/utils'
 import findCategory from './lib/findCategory'
-import { Action, ActionPanel, CopyToClipboardAction, Icon, List } from '@raycast/api'
+import { Action, ActionPanel, Icon, List } from '@raycast/api'
 import UtilityList from './UtilityList'
 import { RuleType } from './types'
 
@@ -28,11 +28,11 @@ export default function UtilityItem({ rule, query }: Props) {
       icon={icon}
       title={selector}
       subtitle={declaration}
-      accessoryTitle={cat.name}
+      accessories={[{ text: cat.name }]}
       keywords={keywords}
       actions={
         <ActionPanel>
-          <CopyToClipboardAction icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
+          <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
           {!query && (
             <Action.Push
               icon={Icon.MagnifyingGlass}
@@ -40,7 +40,7 @@ export default function UtilityItem({ rule, query }: Props) {
               target={<UtilityList query={prefix} />}
             />
           )}
-          <CopyToClipboardAction icon={Icon.CopyClipboard} title='Copy CSS' content={declaration} />
+          <Action.CopyToClipboard icon={Icon.CopyClipboard} title='Copy CSS' content={declaration} />
         </ActionPanel>
       }
     />
