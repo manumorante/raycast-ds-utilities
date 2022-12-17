@@ -4,7 +4,7 @@
 
 Raycast Extension to manipulate DS Utilities classes
 
-![screenshot](/assets/screenshot.png)
+![screenshot](/assets/screenshot.jpg)
 
 # Sites where to get organization ideas for CSS categories
 
