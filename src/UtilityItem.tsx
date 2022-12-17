@@ -13,6 +13,8 @@ export default function UtilityItem({ rule, query }: Props) {
   const { selector, declaration } = rule
   const cat = findCategory(declaration)
   const prefix = getPrefix(selector)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const icon = Icon[cat.icon]
 
   // Search by ...
