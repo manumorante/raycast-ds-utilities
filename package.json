@@ -2,21 +2,21 @@
   "name": "ds-utility",
   "title": "Search for utility",
   "description": "Search for utility",
-  "icon": "command-icon.jpg",
+  "icon": "extension_icon.png",
   "author": "manumorante",
   "license": "MIT",
   "commands": [
     {
       "name": "utility",
       "title": "Utility",
-      "subtitle": "Search utility by name or prpp ...",
+      "subtitle": "Utilities and tokens",
       "description": "Search utility by name or prpp.",
       "mode": "view"
     },
     {
       "name": "token",
       "title": "Token",
-      "subtitle": "Search token name or value.",
+      "subtitle": "Tokens or values",
       "description": "Search token name or value.",
       "mode": "view"
     }
