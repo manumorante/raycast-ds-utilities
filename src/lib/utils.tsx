@@ -1,5 +1,11 @@
 import fs from 'fs'
 
+// getPrefix
+export function getPrefix(name: string) {
+  const separator = name.includes(':') ? ':' : name.includes('-') ? '-' : ''
+  return name.split(separator)[0]
+}
+
 // readFile
 export function readFile(path: string): string {
   const out = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' })
