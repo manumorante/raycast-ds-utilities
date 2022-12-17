@@ -3,7 +3,7 @@ import findCategory from './lib/findCategory'
 import { UtilityItemProps } from './types'
 import { ActionPanel, PasteAction, Icon, List, OpenInBrowserAction } from '@raycast/api'
 
-export default function UtilityListItem({ item }: { item: UtilityItemProps }) {
+export default function UtilityListItem({ id, item }: { id: number; item: UtilityItemProps }) {
   const { name, replacedValues, tokensUsed } = item
   const cat = findCategory(replacedValues)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -12,8 +12,8 @@ export default function UtilityListItem({ item }: { item: UtilityItemProps }) {
 
   return (
     <List.Item
-      id={name}
-      key={name}
+      id={id + name}
+      key={id + name}
       // icon={cat.icon}
       title={name}
       subtitle={replacedValues}

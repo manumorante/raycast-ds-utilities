@@ -20,7 +20,7 @@ export default function UtilityList() {
   return (
     <List isLoading={state.data.length === 0} searchBarPlaceholder='Name or token ...'>
       {state.data.map((item, index) => (
-        <UtilityListItem key={index} item={item} />
+        <UtilityListItem key={index} id={index} item={item} />
       ))}
     </List>
   )

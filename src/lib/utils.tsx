@@ -2,7 +2,8 @@ import fs from 'fs'
 
 // readFile
 export function readFile(path: string): string {
-  return fs.readFileSync(path, { encoding: 'utf8', flag: 'r' })
+  const out = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' })
+  return out.replaceAll('\\', '')
 }
 
 // hasSelector
@@ -28,13 +29,18 @@ export function getSelectors(css: string): NameValue[] {
   if (!css) return []
 
   const selectors: { name: string; value: string }[] = []
+  let lines = css.split('\n')
 
-  const lines = css.split('\n').filter((item) => hasSelector(item))
+  // Nos quedamos las lineas que contengan un selector válido
+  lines = lines.filter((item) => hasSelector(item))
+
   lines.map((item) => {
     const name = item.split('{')[0].trim()
     const value = getBetween(item, '{', '}').trim()
 
-    selectors.push({ name, value })
+    if (name?.length > 0) {
+      selectors.push({ name, value })
+    }
   })
 
   return selectors

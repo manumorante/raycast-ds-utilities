@@ -8,7 +8,9 @@ export default function parseUtilities({ utilities, tokens }: Params): { items: 
     const { name, value } = prop
     const { replacedValues, tokensUsed } = replaceTokensValue(value, tokens)
 
-    items.push({ name, replacedValues, tokensUsed })
+    if (name?.length > 0) {
+      items.push({ name, replacedValues, tokensUsed })
+    }
   })
 
   return { items }
