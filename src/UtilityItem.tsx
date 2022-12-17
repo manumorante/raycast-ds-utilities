@@ -1,10 +1,16 @@
 import { getPrefix } from './lib/utils'
 import findCategory from './lib/findCategory'
 import { UtilityItemProps } from './types'
-import { Action, ActionPanel, PasteAction, Icon, List } from '@raycast/api'
+import { Action, ActionPanel, CopyToClipboardAction, Icon, List } from '@raycast/api'
 import UtilityList from './UtilityList'
 
-export default function UtilityItem({ id, item }: { id: number; item: UtilityItemProps }) {
+type Params = {
+  id: number
+  item: UtilityItemProps
+  query: string
+}
+
+export default function UtilityItem({ id, item, query }: Params) {
   const { name, replacedValues, tokensUsed } = item
   const cat = findCategory(replacedValues)
   const prefix = getPrefix(name)
@@ -17,18 +23,22 @@ export default function UtilityItem({ id, item }: { id: number; item: UtilityIte
     <List.Item
       id={id + name}
       key={id + name}
-      // icon={cat.icon}
+      icon={icon}
       title={name}
       subtitle={replacedValues}
-      accessoryIcon={icon}
       accessoryTitle={cat.name}
       keywords={[tokensUsed, replacedValues, cat.name]}
       actions={
         <ActionPanel>
-          <Action.Push title='Show MyList' target={<UtilityList query={prefix} />} />
-          <PasteAction icon={Icon.Hammer} title={`Paste utility: ${name}`} content={name} />
-          <PasteAction icon={Icon.Gear} title='Paste CSS' content={replacedValues} />
-          <PasteAction icon={Icon.Gear} title={`Paste token: ${tokensUsed}`} content={tokensUsed} />
+          <CopyToClipboardAction icon={Icon.CopyClipboard} title={`Copy utility: ${name}`} content={name} />
+          <CopyToClipboardAction icon={Icon.CopyClipboard} title='Copy CSS' content={replacedValues} />
+          {!query && (
+            <Action.Push
+              icon={Icon.MagnifyingGlass}
+              title={`Filter by ${prefix}`}
+              target={<UtilityList query={prefix} />}
+            />
+          )}
         </ActionPanel>
       }
     />

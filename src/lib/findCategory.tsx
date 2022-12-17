@@ -50,7 +50,7 @@ const CATEGORIES = [
   {
     name: 'Visibility',
     icon: 'Eye',
-    props: ['overflow', 'overflow-y', 'z-index', 'opacity'],
+    props: ['overflow', 'overflow-y', 'z-index', 'opacity', 'visibility'],
   },
   {
     name: 'Background',

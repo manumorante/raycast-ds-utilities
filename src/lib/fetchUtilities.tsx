@@ -3,8 +3,6 @@ import { readFile, getProps, getSelectors } from './utils'
 import parseUtilities from './parseUtilities'
 import { UtilityItemProps } from '../types'
 
-
-
 export default async function fetchUtilities({ query }: { query: string | '' }): Promise<UtilityItemProps[]> {
   const tokensCSS = readFile(paths.tokens)
   const utilitiesCSS = readFile(paths.utilities)

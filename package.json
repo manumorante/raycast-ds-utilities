@@ -4,6 +4,7 @@
   "description": "Search for utility",
   "icon": "extension_icon.png",
   "author": "manumorante",
+  "repository": "https://github.com/manumorante/raycast-ds-utilities",
   "license": "MIT",
   "commands": [
     {
@@ -15,18 +16,18 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.25.2",
-    "node-fetch": "^3.0.0"
+    "@raycast/api": "^1.45.1",
+    "node-fetch": "^3.3.0"
   },
   "devDependencies": {
     "@types/node": "~16.10.0",
-    "@types/react": "^17.0.28",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@types/react": "^17.0.52",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
     "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "react-devtools": "^4.19.2",
-    "typescript": "^4.4.3"
+    "eslint-config-prettier": "^8.5.0",
+    "react-devtools": "^4.27.1",
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "build": "ray build -e dist",

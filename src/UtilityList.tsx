@@ -16,10 +16,9 @@ export default function UtilityList({ query }: { query: string }) {
   }, [])
 
   return (
-    <List isLoading={state.data.length === 0} searchBarPlaceholder='Name or token ...'>
-      {query && <List.Item id='query' key='query' title='' subtitle={`${query}`} />}
+    <List isLoading={state.data.length === 0} searchBarPlaceholder={query || 'Name or token ...'}>
       {state.data.map((item, index) => (
-        <UtilityItem key={index} id={index} item={item} />
+        <UtilityItem key={index} id={index} item={item} query={query} />
       ))}
     </List>
   )
