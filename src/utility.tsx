@@ -2,18 +2,12 @@ import { paths } from '../config'
 import { readFile, getProps, getSelectors } from './lib/utils'
 import parseUtilities from './lib/parseUtilities'
 import { List } from '@raycast/api'
-import UtilityListItem from './UtilityListItem'
 import { useState, useEffect } from 'react'
-
-type List = {
-  id: string
-  title: string
-  subtitle: string
-  accessory: string
-}
+import { UtilityItemProps } from './types'
+import UtilityListItem from './UtilityListItem'
 
 export default function UtilityList() {
-  const [state, setState] = useState<{ data: List[] }>({ data: [] })
+  const [state, setState] = useState<{ data: UtilityItemProps[] }>({ data: [] })
 
   useEffect(() => {
     async function fetch() {
@@ -24,24 +18,24 @@ export default function UtilityList() {
   }, [])
 
   return (
-    <List isLoading={state.data.length === 0} searchBarPlaceholder='Search by name or prop ...'>
-      {state.data.map((utility) => (
-        <UtilityListItem key={utility.id} utility={utility} />
+    <List isLoading={state.data.length === 0} searchBarPlaceholder='Name or token ...'>
+      {state.data.map((item, index) => (
+        <UtilityListItem key={index} item={item} />
       ))}
     </List>
   )
 }
 
-async function fetchUtilities(): Promise<List[]> {
+async function fetchUtilities(): Promise<UtilityItemProps[]> {
   // Leemos cada file css
   const tokensCSS = readFile(paths.tokens)
   const utilitiesCSS = readFile(paths.utilities)
 
   // obtenemos un json
-  const tokensJSON = getProps(tokensCSS)
-  const utilitiesJSON = getSelectors(utilitiesCSS)
+  const tokens = getProps(tokensCSS)
+  const utilities = getSelectors(utilitiesCSS)
 
-  const out = parseUtilities({ utilitiesJSON, tokensJSON })
+  const out = parseUtilities({ utilities, tokens })
 
-  return (out as Record<string, unknown>).items as List[]
+  return (out as Record<string, unknown>).items as UtilityItemProps[]
 }

@@ -1,4 +1,3 @@
-import { categories } from '../categories'
 import fs from 'fs'
 
 // readFile
@@ -20,7 +19,12 @@ function getBetween(str: string, strStart: string, srtEnd: string) {
 }
 
 // getSelectors
-export function getSelectors(css: string): { name: string; value: string }[] {
+type NameValue = {
+  name: string
+  value: string
+}
+
+export function getSelectors(css: string): NameValue[] {
   if (!css) return []
 
   const selectors: { name: string; value: string }[] = []
@@ -59,10 +63,17 @@ export const sana = (value: string) => {
   return value.trim()
 }
 
-// getPropCategory
-export function getPropCategory(prop: string) {
-  const filterCat = categories.propsCategories.filter((category) => {
-    return category.props.includes(prop)
-  })
-  return filterCat.length > 0 ? filterCat[0] : categories.noCategory
+// Reemplaza `height: var(--size-m)` por su valor -> `height: 16px`
+// Devuelve un objeto con el reemplazo y los tokens reemplazados
+type Token = { name: string; value: string }
+export function replaceTokensValue(value: string, tokens: Token[]): { replacedValues: string; tokensUsed: string } {
+  const tokensUsed: string[] = []
+  for (const token of tokens) {
+    const regex = new RegExp(`var\\(${token.name}\\)`, 'g')
+    if (value.match(regex)) {
+      value = value.replace(regex, token.value)
+      tokensUsed.push(token.name)
+    }
+  }
+  return { replacedValues: value, tokensUsed: tokensUsed.join(', ') }
 }

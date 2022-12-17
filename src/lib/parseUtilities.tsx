@@ -1,26 +1,25 @@
-import { sana } from './utils'
+import { replaceTokensValue } from './utils'
+import { UtilityItemProps } from '../types'
 
-export default function parseUtilities({ utilitiesJSON, tokensJSON }: { utilitiesJSON: Array; tokensJSON: Array }) {
-  const items: {
-    id: string
-    title: string
-    subtitle: string
-    accessory: string
-  }[] = []
+export default function parseUtilities({ utilities, tokens }: Params): { items: UtilityItemProps[] } {
+  const items: UtilityItemProps[] = []
 
-  type Prop = {
-    name: string
-    value: string
-  }
+  utilities.map((prop: Obj) => {
+    const { name, value } = prop
+    const { replacedValues, tokensUsed } = replaceTokensValue(value, tokens)
 
-  utilitiesJSON.map((prop: Prop) => {
-    items.push({
-      id: prop.name,
-      title: prop.name,
-      subtitle: sana(prop.value),
-      accessory: '',
-    })
+    items.push({ name, replacedValues, tokensUsed })
   })
 
   return { items }
+}
+
+type Obj = {
+  name: string
+  value: string
+}
+
+type Params = {
+  utilities: Obj[]
+  tokens: Obj[]
 }

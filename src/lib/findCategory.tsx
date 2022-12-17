@@ -1,7 +1,7 @@
-export const categories = [
+const CATEGORIES = [
   {
-    name: 'Text',
-    icon: '🖌',
+    name: 'Font',
+    icon: 'Text',
     props: [
       'font-family',
       'font-size',
@@ -16,10 +16,10 @@ export const categories = [
     ],
   },
   {
-    name: 'Box model',
-    icon: '📦',
+    name: 'Flex',
+    icon: 'BarCode',
     props: [
-      'display',
+      'flex',
       'flex-direction',
       'flex-wrap',
       'flex-flow',
@@ -27,26 +27,34 @@ export const categories = [
       'flex-basis',
       'column-gap',
       'row-gap',
-      'box-sizing',
       'align-items',
       'align-self',
       'justify-content',
-      '-webkit-box-orient',
     ],
   },
   {
+    name: 'Box model',
+    icon: 'Box',
+    props: ['box-sizing', '-webkit-box-orient', 'display'],
+  },
+  {
+    name: 'Grid',
+    icon: 'AppWindowSidebarLeft',
+    props: ['grid'],
+  },
+  {
     name: 'Position',
-    icon: '📍',
+    icon: 'Geopin',
     props: ['position', 'top', 'right', 'bottom', 'left'],
   },
   {
     name: 'Visibility',
-    icon: '👀',
+    icon: 'Eye',
     props: ['overflow', 'overflow-y', 'z-index', 'opacity'],
   },
   {
     name: 'Background',
-    icon: '🖼',
+    icon: 'Image',
     props: [
       'background-color',
       'background',
@@ -59,17 +67,17 @@ export const categories = [
   },
   {
     name: 'Color',
-    icon: '🖍',
-    props: ['color'],
+    icon: 'EyeDropper',
+    props: ['color', 'border-bottom-color', 'border-color', 'outline-color'],
   },
   {
     name: 'Manipulation',
-    icon: '🔧',
+    icon: 'EditShape',
     props: ['transform', 'transition-property', 'transition-timing-function', 'transition-duration'],
   },
   {
     name: 'FX',
-    icon: '✨',
+    icon: 'Wand',
     props: [
       'cursor',
       'box-shadow',
@@ -81,20 +89,18 @@ export const categories = [
       'border-right',
       'border-bottom-right-radius',
       'border-bottom-left-radius',
-      'border-bottom-color',
+
       'border-bottom-style',
       'border-bottom-width',
       'border-style',
-      'border-color',
       'border-radius',
-      'outline-color',
       'appearance',
       'pointer-events',
     ],
   },
   {
     name: 'Dimensions',
-    icon: '📐',
+    icon: 'Maximize',
     props: [
       'max-width',
       'min-width',
@@ -114,3 +120,25 @@ export const categories = [
     ],
   },
 ]
+
+type Category = {
+  name: string
+  icon: string
+  props?: string[]
+}
+
+const notCategory = {
+  name: 'Not category',
+  icon: '',
+}
+
+export default function findCategory(text: string): Category {
+  let found: Category | undefined
+  for (const category of CATEGORIES) {
+    if (category.props.some((prop) => text.includes(prop))) {
+      found = category
+      break
+    }
+  }
+  return found || notCategory
+}
