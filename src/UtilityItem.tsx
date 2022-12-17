@@ -1,9 +1,9 @@
-import { paths } from '../config'
 import findCategory from './lib/findCategory'
 import { UtilityItemProps } from './types'
-import { ActionPanel, PasteAction, Icon, List, OpenInBrowserAction } from '@raycast/api'
+import { Action, ActionPanel, PasteAction, Icon, List } from '@raycast/api'
+import UtilityList from './UtilityList'
 
-export default function UtilityListItem({ id, item }: { id: number; item: UtilityItemProps }) {
+export default function UtilityItem({ id, item }: { id: number; item: UtilityItemProps }) {
   const { name, replacedValues, tokensUsed } = item
   const cat = findCategory(replacedValues)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -22,10 +22,10 @@ export default function UtilityListItem({ id, item }: { id: number; item: Utilit
       keywords={[tokensUsed, replacedValues, cat.name]}
       actions={
         <ActionPanel>
+          <Action.Push title='Show MyList' target={<UtilityList query={name} />} />
           <PasteAction icon={Icon.Hammer} title={`Paste utility: ${name}`} content={name} />
           <PasteAction icon={Icon.Gear} title='Paste CSS' content={replacedValues} />
           <PasteAction icon={Icon.Gear} title={`Paste token: ${tokensUsed}`} content={tokensUsed} />
-          <OpenInBrowserAction title='Open utilities file' url={paths.utilities} />
         </ActionPanel>
       }
     />

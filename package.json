@@ -12,13 +12,6 @@
       "subtitle": "Utilities and tokens",
       "description": "Search utility by name or prpp.",
       "mode": "view"
-    },
-    {
-      "name": "token",
-      "title": "Token",
-      "subtitle": "Tokens or values",
-      "description": "Search token name or value.",
-      "mode": "view"
     }
   ],
   "dependencies": {
