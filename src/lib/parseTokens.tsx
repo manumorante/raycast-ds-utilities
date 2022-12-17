@@ -1,8 +1,9 @@
-import { getProps, sana } from './utils'
+import { sana } from './utils'
+import getRootVars from './getRootVars'
 
 // parseTokens
 export default function parseTokens(css: string) {
-  const props = getProps(css)
+  const props = getRootVars(css)
 
   const items: {
     id: string

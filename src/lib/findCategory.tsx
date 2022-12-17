@@ -132,7 +132,7 @@ const notCategory = {
   icon: '',
 }
 
-export default function findCategory(text: string): Category {
+export default function findCategory(text: string) {
   let found: Category | undefined
   for (const category of CATEGORIES) {
     if (category.props.some((prop) => text.includes(prop))) {

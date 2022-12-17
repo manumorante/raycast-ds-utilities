@@ -1,11 +1,11 @@
 import { List } from '@raycast/api'
 import { useState, useEffect } from 'react'
-import { UtilityItemProps } from './types'
+import { RuleType } from './types'
 import fetchUtilities from './lib/fetchUtilities'
 import UtilityItem from './UtilityItem'
 
 export default function UtilityList({ query }: { query: string }) {
-  const [state, setState] = useState<{ data: UtilityItemProps[] }>({ data: [] })
+  const [state, setState] = useState<{ data: RuleType[] }>({ data: [] })
 
   useEffect(() => {
     async function fetch() {
@@ -18,7 +18,7 @@ export default function UtilityList({ query }: { query: string }) {
   return (
     <List isLoading={state.data.length === 0} searchBarPlaceholder={query || 'Name or token ...'}>
       {state.data.map((item, index) => (
-        <UtilityItem key={index} id={index} item={item} query={query} />
+        <UtilityItem key={index} rule={item} query={query} />
       ))}
     </List>
   )

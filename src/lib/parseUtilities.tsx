@@ -1,12 +1,22 @@
-import { replaceTokensValue } from './utils'
-import { UtilityItemProps } from '../types'
+import hydrateCSS from './hydrateCSS'
+import { DeclarationType, UtilityItemProps } from '../types'
 
-export default function parseUtilities({ utilities, tokens }: Params): { items: UtilityItemProps[] } {
+// type Obj = {
+//   name: string
+//   value: string
+// }
+
+// type Params = {
+//   utilities: Obj[]
+//   tokens: DeclarationType[]
+// }
+
+export default function parseUtilities({ utilities, tokens }) {
   const items: UtilityItemProps[] = []
 
-  utilities.map((prop: Obj) => {
-    const { name, value } = prop
-    const { replacedValues, tokensUsed } = replaceTokensValue(value, tokens)
+  utilities.map((prop) => {
+    const { name } = prop
+    const { rule, used } = hydrateCSS({ rule: prop.value, tokens })
 
     if (name?.length > 0) {
       items.push({ name, replacedValues, tokensUsed })
@@ -14,14 +24,4 @@ export default function parseUtilities({ utilities, tokens }: Params): { items: 
   })
 
   return { items }
-}
-
-type Obj = {
-  name: string
-  value: string
-}
-
-type Params = {
-  utilities: Obj[]
-  tokens: Obj[]
 }

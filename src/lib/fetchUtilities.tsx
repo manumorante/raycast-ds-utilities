@@ -1,25 +1,30 @@
 import { paths } from '../../config'
-import { readFile, getProps, getSelectors } from './utils'
-import parseUtilities from './parseUtilities'
-import { UtilityItemProps } from '../types'
+import getSelectors from './getSelectors'
+import { readFile } from './utils'
+import getRootVars from './getRootVars'
+import hydrateCSS from './hydrateCSS'
 
-export default async function fetchUtilities({ query }: { query: string | '' }): Promise<UtilityItemProps[]> {
+export default async function fetchUtilities({ query }: { query: string | '' }) {
   const tokensCSS = readFile(paths.tokens)
   const utilitiesCSS = readFile(paths.utilities)
 
-  const tokens = getProps(tokensCSS)
+  const tokens = getRootVars(tokensCSS)
   let utilities = getSelectors(utilitiesCSS)
 
   // Filtramos por query
   if (query?.length > 0) {
-    utilities = utilities.filter((item) => {
-      return item.name.includes(query)
-    })
+    utilities = utilities.filter((item) => item.selector.includes(query))
   }
 
-  const out = parseUtilities({ utilities, tokens })
+  // Vamos a llenar un array ya con las reglas (selector + propiedad y valor)
+  utilities = utilities.map((rule) => {
+    const { selector, declaration } = rule
+    const { css } = hydrateCSS({ css: declaration, tokens })
 
-  return (out as Record<string, unknown>).items as UtilityItemProps[]
+    return { selector, declaration: css }
+  })
+
+  return utilities
 }
 
 // if (query === '') {

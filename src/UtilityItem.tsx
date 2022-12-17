@@ -1,37 +1,38 @@
 import { getPrefix } from './lib/utils'
 import findCategory from './lib/findCategory'
-import { UtilityItemProps } from './types'
 import { Action, ActionPanel, CopyToClipboardAction, Icon, List } from '@raycast/api'
 import UtilityList from './UtilityList'
+import { RuleType } from './types'
 
-type Params = {
-  id: number
-  item: UtilityItemProps
+type Props = {
+  rule: RuleType
   query: string
 }
 
-export default function UtilityItem({ id, item, query }: Params) {
-  const { name, replacedValues, tokensUsed } = item
-  const cat = findCategory(replacedValues)
-  const prefix = getPrefix(name)
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+export default function UtilityItem({ rule, query }: Props) {
+  const { selector, declaration } = rule
+  const cat = findCategory(declaration)
+  const prefix = getPrefix(selector)
   const icon = Icon[cat.icon]
+
+  // Search by ...
+  // ...props and real values: "color", "height: 40px", "100%"
+  // ...props and real values: "color", "height: 40px", "100%"
+  // ...category name: "box model", "visibility", "fx"
+  const keywords = [declaration, declaration.replaceAll(':', ''), cat.name]
 
   return (
     <List.Item
-      id={id + name}
-      key={id + name}
+      id={selector}
+      key={selector}
       icon={icon}
-      title={name}
-      subtitle={replacedValues}
+      title={selector}
+      subtitle={declaration}
       accessoryTitle={cat.name}
-      keywords={[tokensUsed, replacedValues, cat.name]}
+      keywords={keywords}
       actions={
         <ActionPanel>
-          <CopyToClipboardAction icon={Icon.CopyClipboard} title={`Copy utility: ${name}`} content={name} />
-          <CopyToClipboardAction icon={Icon.CopyClipboard} title='Copy CSS' content={replacedValues} />
+          <CopyToClipboardAction icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
           {!query && (
             <Action.Push
               icon={Icon.MagnifyingGlass}
@@ -39,6 +40,7 @@ export default function UtilityItem({ id, item, query }: Params) {
               target={<UtilityList query={prefix} />}
             />
           )}
+          <CopyToClipboardAction icon={Icon.CopyClipboard} title='Copy CSS' content={declaration} />
         </ActionPanel>
       }
     />
