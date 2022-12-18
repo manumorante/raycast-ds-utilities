@@ -13,9 +13,6 @@ export default function UtilityItem({ rule, query }: Props) {
   const { selector, declaration } = rule
   const cat = findCategory(declaration)
   const prefix = getPrefix(selector)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const icon = Icon[cat.icon]
 
   // Search by ...
   // ...props and real values: "color", "height: 40px", "100%"
@@ -27,7 +24,7 @@ export default function UtilityItem({ rule, query }: Props) {
     <List.Item
       id={selector}
       key={selector}
-      icon={icon}
+      icon={cat.icon}
       title={selector}
       subtitle={declaration}
       accessories={[{ text: cat.name }]}

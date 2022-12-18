@@ -1,7 +1,9 @@
+import { Icon } from '@raycast/api'
+
 const CATEGORIES = [
   {
     name: 'Font',
-    icon: 'Text',
+    icon: Icon.Text,
     props: [
       'font-family',
       'font-size',
@@ -17,7 +19,7 @@ const CATEGORIES = [
   },
   {
     name: 'Flex',
-    icon: 'BarCode',
+    icon: Icon.BarCode,
     props: [
       'flex',
       'flex-direction',
@@ -34,27 +36,27 @@ const CATEGORIES = [
   },
   {
     name: 'Box model',
-    icon: 'Box',
+    icon: Icon.Box,
     props: ['box-sizing', '-webkit-box-orient', 'display'],
   },
   {
     name: 'Grid',
-    icon: 'AppWindowSidebarLeft',
+    icon: Icon.AppWindowSidebarLeft,
     props: ['grid'],
   },
   {
     name: 'Position',
-    icon: 'Geopin',
+    icon: Icon.Geopin,
     props: ['position', 'top', 'right', 'bottom', 'left'],
   },
   {
     name: 'Visibility',
-    icon: 'Eye',
+    icon: Icon.Eye,
     props: ['overflow', 'overflow-y', 'z-index', 'opacity', 'visibility'],
   },
   {
     name: 'Background',
-    icon: 'Image',
+    icon: Icon.Image,
     props: [
       'background-color',
       'background',
@@ -67,17 +69,17 @@ const CATEGORIES = [
   },
   {
     name: 'Color',
-    icon: 'EyeDropper',
+    icon: Icon.EyeDropper,
     props: ['color', 'border-bottom-color', 'border-color', 'outline-color'],
   },
   {
     name: 'Manipulation',
-    icon: 'EditShape',
+    icon: Icon.EditShape,
     props: ['transform', 'transition-property', 'transition-timing-function', 'transition-duration'],
   },
   {
     name: 'FX',
-    icon: 'Wand',
+    icon: Icon.Wand,
     props: [
       'cursor',
       'box-shadow',
@@ -100,7 +102,7 @@ const CATEGORIES = [
   },
   {
     name: 'Dimensions',
-    icon: 'Maximize',
+    icon: Icon.Maximize,
     props: [
       'max-width',
       'min-width',
