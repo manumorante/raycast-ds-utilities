@@ -16,10 +16,12 @@ export default function UtilityList({ query }: { query: string }) {
   }, [])
 
   return (
-    <List isLoading={state.data.length === 0} searchBarPlaceholder={query || 'Name or token ...'}>
-      {state.data.map((item, index) => (
-        <UtilityItem key={index} rule={item} query={query} />
-      ))}
+    <List isLoading={state.data.length === 0} searchBarPlaceholder={'Name or token ...'}>
+      <List.Section title={query || 'All'}>
+        {state.data.map((item, index) => (
+          <UtilityItem key={index} rule={item} query={query} />
+        ))}
+      </List.Section>
     </List>
   )
 }
