@@ -4,17 +4,12 @@ import { readFile } from './utils'
 import getRootVars from './getRootVars'
 import hydrateCSS from './hydrateCSS'
 
-export default async function getUtilities({ utilityPrefix }: { utilityPrefix: string | '' }) {
+export default async function getData() {
   const tokensCSS = readFile(paths.tokens)
   const utilitiesCSS = readFile(paths.utilities)
 
   const tokens = getRootVars(tokensCSS)
   let utilities = getSelectors(utilitiesCSS)
-
-  // Filtramos por utilityPrefix
-  if (utilityPrefix?.length > 0) {
-    utilities = utilities.filter((item) => item.selector.includes(utilityPrefix))
-  }
 
   // Vamos a llenar un array ya con las reglas (selector + propiedad y valor)
   utilities = utilities.map((rule) => {
@@ -24,5 +19,5 @@ export default async function getUtilities({ utilityPrefix }: { utilityPrefix: s
     return { selector, declaration: css }
   })
 
-  return utilities
+  return { utilities, tokens }
 }

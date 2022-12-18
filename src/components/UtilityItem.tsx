@@ -1,18 +1,10 @@
-import { getPrefix } from '../lib/utils'
 import findCategory from '../lib/findCategory'
 import { Action, ActionPanel, Icon, List } from '@raycast/api'
-import UtilityList from './List'
 import { RuleType } from '../types'
 
-type Props = {
-  rule: RuleType
-  utilityPrefix: string
-}
-
-export default function UtilityItem({ rule, utilityPrefix }: Props) {
+export default function UtilityItem({ rule }: { rule: RuleType }) {
   const { selector, declaration } = rule
   const cat = findCategory(declaration)
-  const prefix = getPrefix(selector)
 
   // Search by ...
   // ...props and real values: "color", "height: 40px", "100%"
@@ -31,13 +23,6 @@ export default function UtilityItem({ rule, utilityPrefix }: Props) {
       keywords={keywords}
       actions={
         <ActionPanel title={selector}>
-          {!utilityPrefix && (
-            <Action.Push
-              icon={Icon.MagnifyingGlass}
-              title={`Filter by ${prefix}`}
-              target={<UtilityList utilityPrefix={prefix} />}
-            />
-          )}
           <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
           <Action.CopyToClipboard
             icon={Icon.CopyClipboard}
