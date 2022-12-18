@@ -6,10 +6,10 @@ import { RuleType } from '../types'
 
 type Props = {
   rule: RuleType
-  query: string
+  utilityPrefix: string
 }
 
-export default function UtilityItem({ rule, query }: Props) {
+export default function UtilityItem({ rule, utilityPrefix }: Props) {
   const { selector, declaration } = rule
   const cat = findCategory(declaration)
   const prefix = getPrefix(selector)
@@ -31,11 +31,11 @@ export default function UtilityItem({ rule, query }: Props) {
       keywords={keywords}
       actions={
         <ActionPanel title={selector}>
-          {!query && (
+          {!utilityPrefix && (
             <Action.Push
               icon={Icon.MagnifyingGlass}
               title={`Filter by ${prefix}`}
-              target={<UtilityList query={prefix} />}
+              target={<UtilityList utilityPrefix={prefix} />}
             />
           )}
           <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />

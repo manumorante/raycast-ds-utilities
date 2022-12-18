@@ -1,5 +1,5 @@
 import UtilityList from './components/List'
 
 export default function utility() {
-  return <UtilityList query='' />
+  return <UtilityList utilityPrefix='' />
 }
