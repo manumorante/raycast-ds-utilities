@@ -33,8 +33,7 @@ export default function UtilityItem({ rule, query }: Props) {
       accessories={[{ text: cat.name }]}
       keywords={keywords}
       actions={
-        <ActionPanel>
-          <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
+        <ActionPanel title={selector}>
           {!query && (
             <Action.Push
               icon={Icon.MagnifyingGlass}
@@ -42,7 +41,13 @@ export default function UtilityItem({ rule, query }: Props) {
               target={<UtilityList query={prefix} />}
             />
           )}
-          <Action.CopyToClipboard icon={Icon.CopyClipboard} title='Copy CSS' content={declaration} />
+          <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
+          <Action.CopyToClipboard
+            icon={Icon.CopyClipboard}
+            title='Copy CSS'
+            content={declaration}
+            shortcut={{ modifiers: ['opt'], key: 'c' }}
+          />
         </ActionPanel>
       }
     />
