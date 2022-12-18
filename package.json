@@ -15,6 +15,15 @@
       "mode": "view"
     }
   ],
+  "preferences": [
+    {
+      "name": "projectPath",
+      "type": "directory",
+      "required": true,
+      "title": "Project directory",
+      "description": "The Project directory path."
+    }
+  ],
   "dependencies": {
     "@raycast/api": "^1.45.1",
     "node-fetch": "^3.3.0"

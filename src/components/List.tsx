@@ -1,8 +1,8 @@
 import { List } from '@raycast/api'
 import { useState, useEffect } from 'react'
-import { RuleType } from './types'
-import fetchUtilities from './lib/fetchUtilities'
-import UtilityItem from './UtilityItem'
+import { RuleType } from '../types'
+import fetchUtilities from '../lib/fetchUtilities'
+import UtilityItem from './Item'
 
 export default function UtilityList({ query }: { query: string }) {
   const [state, setState] = useState<{ data: RuleType[] }>({ data: [] })

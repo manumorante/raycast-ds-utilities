@@ -1,8 +1,8 @@
-import { getPrefix } from './lib/utils'
-import findCategory from './lib/findCategory'
+import { getPrefix } from '../lib/utils'
+import findCategory from '../lib/findCategory'
 import { Action, ActionPanel, Icon, List } from '@raycast/api'
-import UtilityList from './UtilityList'
-import { RuleType } from './types'
+import UtilityList from './List'
+import { RuleType } from '../types'
 
 type Props = {
   rule: RuleType
