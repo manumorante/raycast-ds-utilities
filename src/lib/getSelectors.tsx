@@ -1,8 +1,7 @@
 import { hasSelector, getBetween } from './utils'
 import { RuleType } from '../types'
 
-// getSelectors
-export default function getSelectors(css: string) {
+const getSelectors = (css: string) => {
   const utility: RuleType[] = []
   let lines = css?.split('\n')
 
@@ -20,3 +19,5 @@ export default function getSelectors(css: string) {
 
   return utility
 }
+
+export default getSelectors

@@ -8,7 +8,7 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "utility",
+      "name": "main",
       "title": "Utility",
       "subtitle": "Utilities and tokens",
       "description": "Search utility by name or prpp.",

@@ -15,7 +15,7 @@ import { DeclarationType } from '../types'
  * ]
  */
 
-export default function getRootVars(css: string) {
+const getRootVars = (css: string) => {
   // Use a regular expression to match CSS property-value pairs
   const matches = css?.match(/[^\s:;]+:[^;]+/g)
   if (!matches) return []
@@ -30,3 +30,5 @@ export default function getRootVars(css: string) {
 
   return declarations
 }
+
+export default getRootVars

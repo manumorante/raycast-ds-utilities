@@ -12,7 +12,7 @@ type Props = {
   tokens: DeclarationType[]
 }
 
-export default function hydrateCSS({ css, tokens }: Props) {
+const hydrateCSS = ({ css, tokens }: Props) => {
   // const matches: string[] = []
 
   // Recoremos los tokens
@@ -30,3 +30,5 @@ export default function hydrateCSS({ css, tokens }: Props) {
   // return { css, matches: matches.join(', ') }
   return { css }
 }
+
+export default hydrateCSS
