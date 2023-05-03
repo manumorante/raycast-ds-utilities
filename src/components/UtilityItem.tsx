@@ -4,6 +4,7 @@ import { RuleType } from '../types'
 
 export default function UtilityItem({ rule }: { rule: RuleType }) {
   const { selector, declaration } = rule
+  const selectorName = selector.replace('.', '')
   const cat = findCategory(declaration)
 
   // Search by ...
@@ -17,13 +18,13 @@ export default function UtilityItem({ rule }: { rule: RuleType }) {
       id={selector}
       key={selector}
       icon={cat.icon}
-      title={selector}
+      title={selectorName}
       subtitle={declaration}
       accessories={[{ text: cat.name }]}
       keywords={keywords}
       actions={
         <ActionPanel title={selector}>
-          <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selector}`} content={selector} />
+          <Action.CopyToClipboard icon={Icon.CopyClipboard} title={`Copy utility: ${selectorName}`} content={selectorName} />
           <Action.CopyToClipboard
             icon={Icon.CopyClipboard}
             title='Copy CSS'
