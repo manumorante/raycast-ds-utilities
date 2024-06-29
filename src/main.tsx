@@ -1,32 +1,33 @@
 import { List } from '@raycast/api'
-import { useState, useEffect } from 'react'
-import { RuleType, DeclarationType } from './types'
+import { useCachedPromise } from '@raycast/utils'
 import getData from './lib/getData'
-import OptionsDropdown from './components/OptionsDropdown'
-import Utilities from './components/Utilities'
-import Tokens from './components/Tokens'
+import UtilityItem from './components/UtilityItem'
+import TokenItem from './components/TokenItem'
+import { Data } from './types'
 
-function Main() {
-  const [state, setState] = useState<{ data: { utilities: RuleType[]; tokens: DeclarationType[] } }>({
-    data: { utilities: [], tokens: [] },
+export default function Main() {
+  const fetchData = async (): Promise<Data> => {
+    const rsp = await getData()
+    return rsp
+  }
+
+  const { isLoading, data } = useCachedPromise(fetchData, [], {
+    initialData: { utilities: [], tokens: [] },
   })
-  const [option, setOption] = useState<string>()
-
-  useEffect(() => {
-    async function fetch() {
-      const data = await getData()
-      setState((old) => ({ ...old, data }))
-    }
-    fetch()
-  }, [])
 
   return (
-    <List
-      searchBarPlaceholder='Name or token ...'
-      searchBarAccessory={<OptionsDropdown onChange={(value: string) => setOption(value)} />}>
-      {option !== 'tokens' ? <Utilities data={state.data.utilities} /> : <Tokens data={state.data.tokens} />}
+    <List isLoading={isLoading} searchBarPlaceholder='Utility name or token ...'>
+      <List.Section title='Utilities'>
+        {data.utilities.map((item, index) => (
+          <UtilityItem key={index} rule={item} />
+        ))}
+      </List.Section>
+
+      <List.Section title='Tokens'>
+        {data.tokens.map((token, index) => (
+          <TokenItem key={index} token={token} />
+        ))}
+      </List.Section>
     </List>
   )
 }
-
-export default Main

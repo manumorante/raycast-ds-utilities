@@ -8,7 +8,6 @@ export default function TokenItem({ token }: { token: DeclarationType }) {
     <List.Item
       id={property}
       key={property}
-      icon={Icon.Circle}
       title={property}
       subtitle={value}
       keywords={[property, value]}

@@ -10,7 +10,7 @@ import hydrateCSS from './hydrateCSS'
  * procesa su contenido para devolver dos objetos: "utilities" y "tokens".
  * La función primero lee los archivos CSS y luego procesa el contenido de
  * cada uno para extraer las variables y las reglas de selección.
- * 
+ *
  * A continuación, se aplican algunas transformaciones a las reglas
  * de selección y se devuelven los objetos procesados
  * junto con el contenido original de los archivos CSS.
@@ -25,9 +25,9 @@ const getData = async () => {
 
   utilities = utilities.map((rule) => {
     const { selector, declaration } = rule
-    const { css } = hydrateCSS({ css: declaration, tokens })
+    const { hydrated, props } = hydrateCSS({ declaration, tokens })
 
-    return { selector, declaration: css }
+    return { selector, declaration: hydrated, props }
   })
 
   return { utilities, tokens }

@@ -20,4 +20,10 @@ export type DeclarationType = {
 export type RuleType = {
   selector: string
   declaration: string
+  props?: string
+}
+
+export type Data = {
+  utilities: RuleType[]
+  tokens: DeclarationType[]
 }

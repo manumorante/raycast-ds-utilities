@@ -8,12 +8,12 @@ import { DeclarationType } from '../types'
  */
 
 type Props = {
-  css: string
+  declaration: string
   tokens: DeclarationType[]
 }
 
-const hydrateCSS = ({ css, tokens }: Props) => {
-  // const matches: string[] = []
+const hydrateCSS = ({ declaration, tokens }: Props) => {
+  let props: string[] = []
 
   // Recoremos los tokens
   for (const token of tokens) {
@@ -21,14 +21,14 @@ const hydrateCSS = ({ css, tokens }: Props) => {
     const tokenExp = new RegExp(`var\\(${token.property}\\)`, 'g')
 
     // Jump next token when it's not match
-    if (!css.match(tokenExp)) continue
+    if (!declaration.match(tokenExp)) continue
 
-    css = css.replace(tokenExp, token.value.trim())
-    // matches.push(token.name)
+    declaration = declaration.replace(tokenExp, token.value.trim())
+    props.push(token.property)
   }
 
-  // return { css, matches: matches.join(', ') }
-  return { css }
+  // return { declaration, props: props.join(', ') }
+  return { hydrated: declaration, props: props.join(', ') }
 }
 
 export default hydrateCSS
